@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آپ کے مسائل اور ان کا حل | Islamic Q&A</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons & Animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --emerald-primary: #064E3B;
+            --emerald-light: #059669;
+            --gold-accent: #D4AF37;
+            --soft-white: #F9FAFB;
+        }
+
+        body {
+            font-family: 'Poppins', 'Noto Nastaliq Urdu', serif;
+            background-color: var(--soft-white);
+            scroll-behavior: smooth;
+        }
+
+        .urdu-text { font-family: 'Noto Nastaliq Urdu', serif; line-height: 2.5; }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--gold-accent);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #064E3B 0%, #022C22 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-gradient::before {
+            content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('https://www.transparenttextures.com/patterns/islamic-art.png');
+            opacity: 0.1;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .gold-border { border: 1px solid var(--gold-accent); }
+        
+        /* Search Results Style */
+        #search-results {
+            display: none;
+            position: absolute;
+            width: 100%;
+            top: 100%;
+            background: white;
+            z-index: 50;
+            border-radius: 0 0 1rem 1rem;
+            border: 1px solid var(--gold-accent);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .floating-wa { animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Navbar -->
+    <nav class="glass-nav sticky top-0 z-50 py-4 px-6 md:px-12 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+            <div class="bg-emerald-900 p-2 rounded-lg">
+                <i class="fas fa-mosque text-gold-accent text-2xl"></i>
+            </div>
+            <h1 class="text-emerald-900 font-bold text-xl md:text-2xl tracking-tighter" id="site-logo" data-key="site-logo">
+                آپ کے مسائل اور ان کا حل
+            </h1>
+        </div>
+
+        <!-- Desktop Menu -->
+        <div class="hidden lg:flex items-center space-x-6 font-medium">
+            <a href="#home" class="hover:text-emerald-700 transition" data-key="nav-home">Home</a>
+            <a href="#about" class="hover:text-emerald-700 transition" data-key="nav-about">About</a>
+            <a href="#ask" class="hover:text-emerald-700 transition" data-key="nav-ask">Ask Question</a>
+            <a href="#services" class="hover:text-emerald-700 transition" data-key="nav-services">Services</a>
+            <a href="#scholars" class="hover:text-emerald-700 transition" data-key="nav-scholars">Scholars</a>
+            <a href="#faq" class="hover:text-emerald-700 transition" data-key="nav-faq">FAQ</a>
+            
+            <button onclick="toggleLanguage()" class="bg-emerald-800 text-white px-4 py-2 rounded-full flex items-center gap-2 hover:bg-emerald-700 transition">
+                <i class="fas fa-language"></i>
+                <span id="lang-text">اردو</span>
+            </button>
+        </div>
+
+        <button onclick="toggleMobileMenu()" class="lg:hidden text-emerald-900 text-2xl"><i class="fas fa-bars"></i></button>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-emerald-900 z-50 transform translate-x-full lg:hidden flex flex-col items-center justify-center space-y-8 text-white text-2xl transition-transform duration-300">
+        <button onclick="toggleMobileMenu()" class="absolute top-8 right-8"><i class="fas fa-times"></i></button>
+        <a href="#home" onclick="toggleMobileMenu()" data-key="nav-home">Home</a>
+        <a href="#about" onclick="toggleMobileMenu()" data-key="nav-about">About</a>
+        <a href="#ask" onclick="toggleMobileMenu()" data-key="nav-ask">Ask Question</a>
+        <a href="#services" onclick="toggleMobileMenu()" data-key="nav-services">Services</a>
+        <a href="#faq" onclick="toggleMobileMenu()" data-key="nav-faq">FAQ</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient min-h-[80vh] flex items-center text-white px-6 md:px-12 py-20">
+        <div class="max-w-4xl z-10" data-aos="fade-up">
+            <h2 class="text-gold-accent font-semibold mb-4 tracking-widest uppercase" data-key="hero-sub">Authentic Islamic Guidance</h2>
+            <h1 class="text-4xl md:text-7xl font-bold mb-6 leading-tight" data-key="hero-title">Seeking knowledge is a duty upon every Muslim.</h1>
+            <p class="text-lg md:text-xl opacity-90 mb-10 max-w-2xl" data-key="hero-desc">Get your religious questions answered by verified scholars privately according to Quran and Sunnah.</p>
+            <div class="flex flex-wrap gap-4">
+                <a href="#ask" class="bg-gold-accent hover:bg-yellow-600 text-emerald-900 font-bold px-8 py-4 rounded-lg transition-all transform hover:scale-105" data-key="btn-ask">Ask a Question</a>
+                <a href="#services" class="border-2 border-white hover:bg-white hover:text-emerald-900 px-8 py-4 rounded-lg font-bold transition-all" data-key="btn-view">Our Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <div class="container mx-auto px-6 -mt-10 relative z-40">
+        <div class="bg-white p-4 rounded-2xl shadow-2xl relative gold-border">
+            <div class="flex flex-col md:flex-row gap-4 items-center">
+                <i class="fas fa-search text-emerald-600 text-xl px-4"></i>
+                <input type="text" id="main-search" onkeyup="searchQuestions()" class="w-full p-4 outline-none text-lg" placeholder="Search questions or topics..." data-key="search-placeholder">
+                <button class="bg-emerald-700 text-white px-10 py-4 rounded-xl hover:bg-emerald-800 transition w-full md:w-auto" data-key="btn-search">Search</button>
+            </div>
+            <div id="search-results" class="p-4"></div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6 md:px-12 container mx-auto">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div data-aos="fade-right">
+                <img src="https://images.unsplash.com/photo-1590076214667-cda933b484d9?auto=format&fit=crop&q=80&w=1000" alt="Islamic Study" class="rounded-3xl shadow-2xl gold-border">
+            </div>
+            <div data-aos="fade-left">
+                <h2 class="text-3xl md:text-4xl font-bold text-emerald-900 mb-6" data-key="about-title">About Our Mission</h2>
+                <p class="text-gray-600 leading-relaxed mb-6" data-key="about-p1">We provide a platform where the modern Muslim can bridge the gap between traditional values and contemporary challenges. Our scholars are carefully selected to provide authentic answers.</p>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-4"><i class="fas fa-check-circle text-emerald-600"></i> <span data-key="feat-1">Verified Scholars & Muftis</span></div>
+                    <div class="flex items-center gap-4"><i class="fas fa-check-circle text-emerald-600"></i> <span data-key="feat-2">Confidential & Private</span></div>
+                    <div class="flex items-center gap-4"><i class="fas fa-check-circle text-emerald-600"></i> <span data-key="feat-3">Response via WhatsApp & Email</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="bg-emerald-50 py-24 px-6">
+        <div class="container mx-auto text-center mb-16">
+            <h2 class="text-4xl font-bold text-emerald-900 mb-4" data-key="serv-title">Our Services</h2>
+            <div class="w-24 h-1 bg-gold-accent mx-auto"></div>
+        </div>
+        <div class="container mx-auto grid md:grid-cols-3 gap-8">
+            <div class="bg-white p-10 rounded-2xl shadow-md card-hover text-center" data-aos="zoom-in">
+                <i class="fas fa-book-open text-4xl text-emerald-700 mb-6"></i>
+                <h3 class="text-xl font-bold mb-4" data-key="serv-1-t">Fiqh Consultations</h3>
+                <p class="text-gray-600" data-key="serv-1-d">Detailed answers regarding prayer, fasting, and daily jurisprudence.</p>
+            </div>
+            <div class="bg-white p-10 rounded-2xl shadow-md card-hover text-center" data-aos="zoom-in" data-aos-delay="100">
+                <i class="fas fa-users text-4xl text-emerald-700 mb-6"></i>
+                <h3 class="text-xl font-bold mb-4" data-key="serv-2-t">Family Counseling</h3>
+                <p class="text-gray-600" data-key="serv-2-d">Guidance on marriage and resolving disputes through Shariah.</p>
+            </div>
+            <div class="bg-white p-10 rounded-2xl shadow-md card-hover text-center" data-aos="zoom-in" data-aos-delay="200">
+                <i class="fas fa-hand-holding-heart text-4xl text-emerald-700 mb-6"></i>
+                <h3 class="text-xl font-bold mb-4" data-key="serv-3-t">Inheritance (Mirath)</h3>
+                <p class="text-gray-600" data-key="serv-3-d">Professional advice according to Islamic laws.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ask Question Section (With your Formspree ID) -->
+    <section id="ask" class="py-24 px-6 container mx-auto">
+        <div class="max-w-3xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden gold-border" data-aos="fade-up">
+            <div class="bg-emerald-900 p-8 text-white text-center">
+                <h2 class="text-3xl font-bold mb-2" data-key="form-title">Submit Your Question</h2>
+                <p class="opacity-80" data-key="form-sub">We will send your answer through WhatsApp or Gmail.</p>
+            </div>
+            
+            <form id="qaForm" action="https://formspree.io/f/xpqnnqlv" method="POST" class="p-8 md:p-12 space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block mb-2 font-semibold" data-key="label-name">Full Name</label>
+                        <input type="text" name="name" required class="w-full p-4 rounded-xl bg-gray-50 border border-gray-200 focus:border-emerald-500 focus:outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-semibold" data-key="label-wa">WhatsApp Number</label>
+                        <input type="tel" name="whatsapp" required class="w-full p-4 rounded-xl bg-gray-50 border border-gray-200 focus:border-emerald-500 focus:outline-none transition">
+                    </div>
+                </div>
+                <div>
+                    <label class="block mb-2 font-semibold" data-key="label-email">Gmail Address</label>
+                    <input type="email" name="email" required class="w-full p-4 rounded-xl bg-gray-50 border border-gray-200 focus:border-emerald-500 focus:outline-none transition">
+                </div>
+                <div>
+                    <label class="block mb-2 font-semibold" data-key="label-ques">Your Islamic Question</label>
+                    <textarea name="question" rows="5" required class="w-full p-4 rounded-xl bg-gray-50 border border-gray-200 focus:border-emerald-500 focus:outline-none transition"></textarea>
+                </div>
+                <button type="submit" id="submitBtn" class="w-full bg-emerald-700 text-white font-bold py-4 rounded-xl hover:bg-emerald-800 transition-all text-xl shadow-lg" data-key="btn-submit">
+                    Submit Question
+                </button>
+            </form>
+
+            <!-- Success Message (Initially Hidden) -->
+            <div id="thankYouMsg" class="hidden p-16 text-center">
+                <i class="fas fa-check-circle text-7xl text-emerald-600 mb-6"></i>
+                <h2 class="text-3xl font-bold text-emerald-900" data-key="success-text">Thank You!</h2>
+                <p class="text-xl text-gray-600 mt-4" data-key="success-sub">Your question has been sent privately. We will respond soon.</p>
+                <button onclick="location.reload()" class="mt-8 text-emerald-700 font-bold border-b-2 border-emerald-700">Send Another Question</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="bg-gray-50 py-24 px-6">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold text-center text-emerald-900 mb-12" data-key="faq-title">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <div class="bg-white rounded-xl shadow-sm gold-border overflow-hidden">
+                    <button class="w-full p-6 text-left flex justify-between items-center font-bold text-lg" onclick="toggleFaq(this)">
+                        <span data-key="faq-q1">How long does it take to get an answer?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="p-6 pt-0 text-gray-600 hidden">Usually within 24 to 48 hours.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-emerald-950 text-white pt-20 pb-10 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bold mb-4" data-key="site-logo">آپ کے مسائل اور ان کا حل</h2>
+            <p class="opacity-70 mb-8" data-key="hero-desc">Get your religious questions answered by verified scholars privately.</p>
+            <div class="flex justify-center gap-6 mb-10 text-2xl">
+                <a href="#"><i class="fab fa-facebook hover:text-gold-accent transition"></i></a>
+                <a href="#"><i class="fab fa-whatsapp hover:text-gold-accent transition"></i></a>
+                <a href="#"><i class="fab fa-instagram hover:text-gold-accent transition"></i></a>
+            </div>
+            <p class="text-sm opacity-50">&copy; 2024 Aap Ke Masail. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/923437996268" target="_blank" class="fixed bottom-8 right-8 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl z-50 floating-wa text-3xl">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        let currentLang = 'en';
+
+        const translations = {
+            'en': {
+                'nav-home': 'Home', 'nav-about': 'About', 'nav-ask': 'Ask Question', 'nav-services': 'Services', 'nav-scholars': 'Scholars', 'nav-faq': 'FAQ',
+                'site-logo': 'Aap Ke Masail', 'hero-title': 'Seeking knowledge is a duty upon every Muslim.',
+                'hero-desc': 'Get your religious questions answered by verified scholars privately.',
+                'btn-ask': 'Ask a Question', 'btn-view': 'Our Services', 'search-placeholder': 'Search questions or topics...',
+                'btn-search': 'Search', 'about-title': 'About Our Mission', 'form-title': 'Submit Your Question',
+                'btn-submit': 'Submit Question', 'success-text': 'Thank You!', 'success-sub': 'Your question has been sent privately.'
+            },
+            'ur': {
+                'nav-home': 'ہوم', 'nav-about': 'ہمارے بارے میں', 'nav-ask': 'سوال پوچھیں', 'nav-services': 'خدمات', 'nav-scholars': 'علماء کرام', 'nav-faq': 'عام سوالات',
+                'site-logo': 'آپ کے مسائل اور ان کا حل', 'hero-title': 'علم کا حصول ہر مسلمان پر فرض ہے۔',
+                'hero-desc': 'اپنے دینی سوالات کے جوابات مستند علماء سے مکمل رازداری کے ساتھ حاصل کریں۔',
+                'btn-ask': 'سوال پوچھیں', 'btn-view': 'ہماری خدمات', 'search-placeholder': 'سوال یا ٹاپک تلاش کریں...',
+                'btn-search': 'تلاش کریں', 'about-title': 'ہمارا مشن', 'form-title': 'اپنا سوال ارسال کریں',
+                'btn-submit': 'سوال جمع کروائیں', 'success-text': 'شکریہ!', 'success-sub': 'آپ کا سوال ہمیں موصول ہو گیا ہے اور اسے خفیہ رکھا جائے گا۔'
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'ur' : 'en';
+            document.documentElement.dir = currentLang === 'ur' ? 'rtl' : 'ltr';
+            document.body.className = currentLang === 'ur' ? 'urdu-text text-gray-800' : 'text-gray-800';
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[currentLang][key]) {
+                    el.tagName === 'INPUT' ? el.placeholder = translations[currentLang][key] : el.innerText = translations[currentLang][key];
+                }
+            });
+            document.getElementById('lang-text').innerText = currentLang === 'en' ? 'اردو' : 'English';
+        }
+
+        // Smart Search Logic
+        const faqData = [
+            { q: "Prayer Method / نماز کا طریقہ", id: "#faq" },
+            { q: "Zakat Rules / زکوۃ کے مسائل", id: "#services" },
+            { q: "Marriage Guidance / نکاح کے مسائل", id: "#ask" },
+            { q: "Inheritance / وراثت", id: "#services" }
+        ];
+
+        function searchQuestions() {
+            const input = document.getElementById('main-search').value.toLowerCase();
+            const resultsDiv = document.getElementById('search-results');
+            resultsDiv.innerHTML = '';
+            if(input.length < 2) { resultsDiv.style.display = 'none'; return; }
+            const filtered = faqData.filter(item => item.q.toLowerCase().includes(input));
+            if(filtered.length > 0) {
+                resultsDiv.style.display = 'block';
+                filtered.forEach(res => {
+                    const div = document.createElement('div');
+                    div.className = 'p-3 border-b hover:bg-emerald-50 cursor-pointer font-bold';
+                    div.innerHTML = res.q;
+                    div.onclick = () => { window.location.href = res.id; resultsDiv.style.display = 'none'; };
+                    resultsDiv.appendChild(div);
+                });
+            } else { resultsDiv.style.display = 'none'; }
+        }
+
+        // Form Logic (Secret submission)
+        const form = document.getElementById("qaForm");
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const btn = document.getElementById("submitBtn");
+            btn.innerText = "Processing...";
+            const data = new FormData(form);
+            fetch(form.action, {
+                method: "POST",
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            }).then(() => {
+                form.classList.add("hidden");
+                document.getElementById("thankYouMsg").classList.remove("hidden");
+            });
+        });
+
+        function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('translate-x-full'); }
+        function toggleFaq(btn) { btn.nextElementSibling.classList.toggle('hidden'); }
+    </script>
+</body>
+</html>
