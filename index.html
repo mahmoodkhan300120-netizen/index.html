@@ -6,7 +6,6 @@
     <meta name="google-site-verification" content="R-onod6kJliGZIf1n65AahitIrWTBC-PgSTFidMNVlc" />
     <title>آپ کے مسائل اور ان کا حل | Islamic Q&A</title>
     <meta name="description" content="آپ کے مسائل اور ان کا حل ایک معلوماتی ویب سائٹ ہے جہاں مختلف مسائل کے آسان اور مفید حل فراہم کیے جاتے ہیں۔">
-    <link rel="icon" type="image/png" href="favicon.png">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -60,7 +59,6 @@
 
         .gold-border { border: 1px solid var(--gold-accent); }
         
-        /* Search Results Style */
         #search-results {
             display: none;
             position: absolute;
@@ -87,7 +85,7 @@
             <div class="bg-emerald-900 p-2 rounded-lg">
                 <i class="fas fa-mosque text-gold-accent text-2xl"></i>
             </div>
-            <h1 class="text-emerald-900 font-bold text-xl md:text-2xl tracking-tighter" id="site-logo" data-key="site-logo">
+            <h1 class="text-emerald-900 font-bold text-xl md:text-2xl tracking-tighter" data-key="site-logo">
                 آپ کے مسائل اور ان کا حل
             </h1>
         </div>
@@ -188,7 +186,7 @@
         </div>
     </section>
 
-    <!-- Ask Question Section (With your Formspree ID) -->
+    <!-- Ask Question Section -->
     <section id="ask" class="py-24 px-6 container mx-auto">
         <div class="max-w-3xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden gold-border" data-aos="fade-up">
             <div class="bg-emerald-900 p-8 text-white text-center">
@@ -220,12 +218,11 @@
                 </button>
             </form>
 
-            <!-- Success Message (Initially Hidden) -->
             <div id="thankYouMsg" class="hidden p-16 text-center">
                 <i class="fas fa-check-circle text-7xl text-emerald-600 mb-6"></i>
                 <h2 class="text-3xl font-bold text-emerald-900" data-key="success-text">Thank You!</h2>
                 <p class="text-xl text-gray-600 mt-4" data-key="success-sub">Your question has been sent privately. We will respond soon.</p>
-                <button onclick="location.reload()" class="mt-8 text-emerald-700 font-bold border-b-2 border-emerald-700">Send Another Question</button>
+                <button onclick="location.reload()" class="mt-8 text-emerald-700 font-bold border-b-2 border-emerald-700" data-key="btn-another">Send Another Question</button>
             </div>
         </div>
     </section>
@@ -240,7 +237,7 @@
                         <span data-key="faq-q1">How long does it take to get an answer?</span>
                         <i class="fas fa-chevron-down"></i>
                     </button>
-                    <div class="p-6 pt-0 text-gray-600 hidden">Usually within 24 to 48 hours.</div>
+                    <div class="p-6 pt-0 text-gray-600 hidden" data-key="faq-a1">Usually within 24 to 48 hours.</div>
                 </div>
             </div>
         </div>
@@ -253,7 +250,7 @@
             <p class="opacity-70 mb-8" data-key="hero-desc">Get your religious questions answered by verified scholars privately.</p>
             <div class="flex justify-center gap-6 mb-10 text-2xl">
                 <a href="#"><i class="fab fa-facebook hover:text-gold-accent transition"></i></a>
-                <a href="#"><i class="fab fa-whatsapp hover:text-gold-accent transition"></i></a>
+                <a href="https://wa.me/923437996268"><i class="fab fa-whatsapp hover:text-gold-accent transition"></i></a>
                 <a href="#"><i class="fab fa-instagram hover:text-gold-accent transition"></i></a>
             </div>
             <p class="text-sm opacity-50">&copy; 2024 Aap Ke Masail. All rights reserved.</p>
@@ -265,46 +262,77 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        let currentLang = 'en';
+        let currentLang = 'ur'; // Default set to Urdu as per your requirement
 
         const translations = {
             'en': {
                 'nav-home': 'Home', 'nav-about': 'About', 'nav-ask': 'Ask Question', 'nav-services': 'Services', 'nav-scholars': 'Scholars', 'nav-faq': 'FAQ',
-                'site-logo': 'Aap Ke Masail', 'hero-title': 'Seeking knowledge is a duty upon every Muslim.',
-                'hero-desc': 'Get your religious questions answered by verified scholars privately.',
+                'site-logo': 'Aap Ke Masail', 'hero-sub': 'Authentic Islamic Guidance', 'hero-title': 'Seeking knowledge is a duty upon every Muslim.',
+                'hero-desc': 'Get your religious questions answered by verified scholars privately according to Quran and Sunnah.',
                 'btn-ask': 'Ask a Question', 'btn-view': 'Our Services', 'search-placeholder': 'Search questions or topics...',
-                'btn-search': 'Search', 'about-title': 'About Our Mission', 'form-title': 'Submit Your Question',
-                'btn-submit': 'Submit Question', 'success-text': 'Thank You!', 'success-sub': 'Your question has been sent privately.'
+                'btn-search': 'Search', 'about-title': 'About Our Mission', 
+                'about-p1': 'We provide a platform where the modern Muslim can bridge the gap between traditional values and contemporary challenges.',
+                'feat-1': 'Verified Scholars & Muftis', 'feat-2': 'Confidential & Private', 'feat-3': 'Response via WhatsApp & Email',
+                'serv-title': 'Our Services', 'serv-1-t': 'Fiqh Consultations', 'serv-1-d': 'Detailed answers regarding prayer, fasting, and daily jurisprudence.',
+                'serv-2-t': 'Family Counseling', 'serv-2-d': 'Guidance on marriage and resolving disputes through Shariah.',
+                'serv-3-t': 'Inheritance (Mirath)', 'serv-3-d': 'Professional advice according to Islamic laws.',
+                'form-title': 'Submit Your Question', 'form-sub': 'We will send your answer through WhatsApp or Gmail.',
+                'label-name': 'Full Name', 'label-wa': 'WhatsApp Number', 'label-email': 'Gmail Address', 'label-ques': 'Your Islamic Question',
+                'btn-submit': 'Submit Question', 'success-text': 'Thank You!', 'success-sub': 'Your question has been sent privately. We will respond soon.',
+                'btn-another': 'Send Another Question', 'faq-title': 'Frequently Asked Questions', 
+                'faq-q1': 'How long does it take to get an answer?', 'faq-a1': 'Usually within 24 to 48 hours.',
+                'lang-btn': 'اردو'
             },
             'ur': {
                 'nav-home': 'ہوم', 'nav-about': 'ہمارے بارے میں', 'nav-ask': 'سوال پوچھیں', 'nav-services': 'خدمات', 'nav-scholars': 'علماء کرام', 'nav-faq': 'عام سوالات',
-                'site-logo': 'آپ کے مسائل اور ان کا حل', 'hero-title': 'علم کا حصول ہر مسلمان پر فرض ہے۔',
-                'hero-desc': 'اپنے دینی سوالات کے جوابات مستند علماء سے مکمل رازداری کے ساتھ حاصل کریں۔',
+                'site-logo': 'آپ کے مسائل اور ان کا حل', 'hero-sub': 'مستند اسلامی رہنمائی', 'hero-title': 'علم کا حصول ہر مسلمان پر فرض ہے۔',
+                'hero-desc': 'اپنے دینی سوالات کے جوابات مستند علماء سے قرآن و سنت کی روشنی میں مکمل رازداری کے ساتھ حاصل کریں۔',
                 'btn-ask': 'سوال پوچھیں', 'btn-view': 'ہماری خدمات', 'search-placeholder': 'سوال یا ٹاپک تلاش کریں...',
-                'btn-search': 'تلاش کریں', 'about-title': 'ہمارا مشن', 'form-title': 'اپنا سوال ارسال کریں',
-                'btn-submit': 'سوال جمع کروائیں', 'success-text': 'شکریہ!', 'success-sub': 'آپ کا سوال ہمیں موصول ہو گیا ہے اور اسے خفیہ رکھا جائے گا۔'
+                'btn-search': 'تلاش کریں', 'about-title': 'ہمارا مشن', 
+                'about-p1': 'ہم ایک ایسا پلیٹ فارم مہیا کر رہے ہیں جہاں جدید دور کے چیلنجز کا حل روایتی اسلامی اقدار کی روشنی میں دیا جاتا ہے۔',
+                'feat-1': 'تصدیق شدہ علماء اور مفتیان کرام', 'feat-2': 'مکمل رازداری اور پرائیویسی', 'feat-3': 'واٹس ایپ اور ای میل کے ذریعے جواب',
+                'serv-title': 'ہماری خدمات', 'serv-1-t': 'فقہی مسائل', 'serv-1-d': 'نماز، روزہ اور روزمرہ کے فقہی مسائل پر تفصیلی جوابات۔',
+                'serv-2-t': 'خاندانی مشاورت', 'serv-2-d': 'نکاح اور خاندانی تنازعات کا شرعی حل اور رہنمائی۔',
+                'serv-3-t': 'وراثت کے مسائل', 'serv-3-d': 'اسلامی قوانین کے مطابق وراثت کی تقسیم پر پیشہ ورانہ مشورہ۔',
+                'form-title': 'اپنا سوال ارسال کریں', 'form-sub': 'ہم آپ کے سوال کا جواب واٹس ایپ یا جی میل پر بھیجیں گے۔',
+                'label-name': 'مکمل نام', 'label-wa': 'واٹس ایپ نمبر', 'label-email': 'جی میل ایڈریس', 'label-ques': 'آپ کا اسلامی سوال',
+                'btn-submit': 'سوال جمع کروائیں', 'success-text': 'شکریہ!', 'success-sub': 'آپ کا سوال ہمیں موصول ہو گیا ہے اور اسے خفیہ رکھا جائے گا۔ ہم جلد جواب دیں گے۔',
+                'btn-another': 'دوسرا سوال بھیجیں', 'faq-title': 'عام طور پر پوچھے جانے والے سوالات', 
+                'faq-q1': 'جواب ملنے میں کتنا وقت لگتا ہے؟', 'faq-a1': 'عام طور پر 24 سے 48 گھنٹوں کے اندر۔',
+                'lang-btn': 'English'
             }
         };
 
         function toggleLanguage() {
             currentLang = currentLang === 'en' ? 'ur' : 'en';
-            document.documentElement.dir = currentLang === 'ur' ? 'rtl' : 'ltr';
-            document.body.className = currentLang === 'ur' ? 'urdu-text text-gray-800' : 'text-gray-800';
+            const isUrdu = currentLang === 'ur';
+            document.documentElement.dir = isUrdu ? 'rtl' : 'ltr';
+            document.body.className = isUrdu ? 'urdu-text text-gray-800' : 'text-gray-800';
+            
             document.querySelectorAll('[data-key]').forEach(el => {
                 const key = el.getAttribute('data-key');
                 if (translations[currentLang][key]) {
-                    el.tagName === 'INPUT' ? el.placeholder = translations[currentLang][key] : el.innerText = translations[currentLang][key];
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = translations[currentLang][key];
+                    } else {
+                        el.innerText = translations[currentLang][key];
+                    }
                 }
             });
-            document.getElementById('lang-text').innerText = currentLang === 'en' ? 'اردو' : 'English';
+            document.getElementById('lang-text').innerText = translations[currentLang === 'en' ? 'ur' : 'en']['lang-btn'];
         }
 
-        // Smart Search Logic
+        // Initialize with default language
+        window.onload = () => {
+            // Force Urdu at start as per UR text in initial HTML
+            currentLang = 'en'; 
+            toggleLanguage(); 
+        };
+
         const faqData = [
             { q: "Prayer Method / نماز کا طریقہ", id: "#faq" },
             { q: "Zakat Rules / زکوۃ کے مسائل", id: "#services" },
@@ -330,12 +358,12 @@
             } else { resultsDiv.style.display = 'none'; }
         }
 
-        // Form Logic (Secret submission)
         const form = document.getElementById("qaForm");
         form.addEventListener("submit", function(e) {
             e.preventDefault();
             const btn = document.getElementById("submitBtn");
-            btn.innerText = "Processing...";
+            const originalText = btn.innerText;
+            btn.innerText = currentLang === 'ur' ? "ارسال ہو رہا ہے..." : "Processing...";
             const data = new FormData(form);
             fetch(form.action, {
                 method: "POST",
@@ -344,6 +372,9 @@
             }).then(() => {
                 form.classList.add("hidden");
                 document.getElementById("thankYouMsg").classList.remove("hidden");
+            }).catch(() => {
+                alert("Error sending message.");
+                btn.innerText = originalText;
             });
         });
 
@@ -351,4 +382,4 @@
         function toggleFaq(btn) { btn.nextElementSibling.classList.toggle('hidden'); }
     </script>
 </body>
-</html>
+        </html>
