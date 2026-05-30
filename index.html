@@ -1,18 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" style="overflow-x: hidden;">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta name="google-site-verification" content="R-onod6kJliGZIf1n65AahitIrWTBC-PgSTFidMNVlc" />
     <title>آپ کے مسائل اور ان کا حل | Islamic Q&A</title>
-    
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Icons & Animations -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
@@ -24,12 +18,24 @@
             --soft-white: #F9FAFB;
         }
 
+        /* Essential Fix for Zoom/White Gap */
+        html, body {
+            overflow-x: hidden !important;
+            width: 100% !important;
+            position: relative;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Poppins', 'Noto Nastaliq Urdu', serif;
             background-color: var(--soft-white);
             scroll-behavior: smooth;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            opacity: 0; 
+            transition: opacity 0.3s ease;
         }
+
+        body.loaded { opacity: 1; }
 
         .urdu-text { font-family: 'Noto Nastaliq Urdu', serif; line-height: 2.2; }
 
@@ -72,40 +78,28 @@
             overflow-y: auto;
         }
 
-        /* Responsive Mobile Menu */
-        #mobile-menu {
-            transition: 0.3s ease-in-out;
-            z-index: 1000;
-        }
-
         .floating-wa { animation: pulse 2s infinite; }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body class="text-gray-800">
 
-    <!-- Navbar -->
     <nav class="glass-nav sticky top-0 z-50 py-3 px-4 md:px-12 flex justify-between items-center">
         <div class="flex items-center space-x-2">
             <div class="bg-emerald-900 p-2 rounded-lg">
                 <i class="fas fa-mosque text-gold-accent text-xl md:text-2xl"></i>
             </div>
-            <h1 class="text-emerald-900 font-bold text-lg md:text-2xl tracking-tighter" data-key="site-logo">
-                آپ کے مسائل اور ان کا حل
-            </h1>
+            <h1 class="text-emerald-900 font-bold text-lg md:text-2xl tracking-tighter" data-key="site-logo">آپ کے مسائل اور ان کا حل</h1>
         </div>
 
-        <!-- Desktop Menu -->
         <div class="hidden lg:flex items-center space-x-6 font-medium">
             <a href="#home" class="hover:text-emerald-700 transition" data-key="nav-home">Home</a>
             <a href="#about" class="hover:text-emerald-700 transition" data-key="nav-about">About</a>
             <a href="#ask" class="hover:text-emerald-700 transition" data-key="nav-ask">Ask Question</a>
             <a href="#services" class="hover:text-emerald-700 transition" data-key="nav-services">Services</a>
             <a href="#faq" class="hover:text-emerald-700 transition" data-key="nav-faq">FAQ</a>
-            
             <button onclick="toggleLanguage()" class="bg-emerald-800 text-white px-4 py-2 rounded-full flex items-center gap-2 hover:bg-emerald-700 transition">
-                <i class="fas fa-language"></i>
-                <span id="lang-text">اردو</span>
+                <i class="fas fa-language"></i> <span id="lang-text">اردو</span>
             </button>
         </div>
 
@@ -115,7 +109,6 @@
         </div>
     </nav>
 
-    <!-- Mobile Menu Overlay -->
     <div id="mobile-menu" class="fixed inset-0 bg-emerald-900 z-[1000] transform translate-x-full lg:hidden flex flex-col items-center justify-center space-y-8 text-white text-2xl">
         <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-3xl"><i class="fas fa-times"></i></button>
         <a href="#home" onclick="toggleMobileMenu()" data-key="nav-home">Home</a>
@@ -125,141 +118,79 @@
         <a href="#faq" onclick="toggleMobileMenu()" data-key="nav-faq">FAQ</a>
     </div>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-gradient min-h-[70vh] md:min-h-[80vh] flex items-center text-white px-6 md:px-12 py-12">
-        <div class="max-w-4xl z-10 w-full" data-aos="fade-up">
-            <h2 class="text-gold-accent font-semibold mb-2 tracking-widest uppercase text-sm md:text-base" data-key="hero-sub">Authentic Islamic Guidance</h2>
-            <h1 class="text-3xl md:text-7xl font-bold mb-4 leading-tight" data-key="hero-title">Seeking knowledge is a duty upon every Muslim.</h1>
-            <p class="text-base md:text-xl opacity-90 mb-8 max-w-2xl" data-key="hero-desc">Get your religious questions answered by verified scholars privately according to Quran and Sunnah.</p>
-            <div class="flex flex-wrap gap-4">
-                <a href="#ask" class="bg-gold-accent hover:bg-yellow-600 text-emerald-900 font-bold px-6 py-3 md:px-8 md:py-4 rounded-lg transition-all text-sm md:text-base" data-key="btn-ask">Ask a Question</a>
-                <a href="#services" class="border-2 border-white hover:bg-white hover:text-emerald-900 px-6 py-3 md:px-8 md:py-4 rounded-lg font-bold transition-all text-sm md:text-base" data-key="btn-view">Our Services</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Search Section -->
-    <div class="container mx-auto px-4 md:px-6 -mt-8 relative z-40">
-        <div class="bg-white p-3 md:p-4 rounded-2xl shadow-2xl relative gold-border">
-            <div class="flex flex-col md:flex-row gap-2 items-center">
-                <div class="flex items-center w-full">
-                    <i class="fas fa-search text-emerald-600 px-3"></i>
-                    <input type="text" id="main-search" onkeyup="searchQuestions()" class="w-full p-2 md:p-3 outline-none text-base md:text-lg" placeholder="Search questions..." data-key="search-placeholder">
+    <!-- Wrapping Content to prevent bleed -->
+    <div class="w-full overflow-x-hidden">
+        <section id="home" class="hero-gradient min-h-[70vh] md:min-h-[80vh] flex items-center text-white px-6 md:px-12 py-12">
+            <div class="max-w-4xl z-10 w-full" data-aos="fade-up">
+                <h2 class="text-gold-accent font-semibold mb-2 tracking-widest uppercase text-sm md:text-base" data-key="hero-sub">Authentic Islamic Guidance</h2>
+                <h1 class="text-3xl md:text-7xl font-bold mb-4 leading-tight" data-key="hero-title">Seeking knowledge is a duty upon every Muslim.</h1>
+                <p class="text-base md:text-xl opacity-90 mb-8 max-w-2xl" data-key="hero-desc">Get your religious questions answered by verified scholars privately according to Quran and Sunnah.</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#ask" class="bg-gold-accent hover:bg-yellow-600 text-emerald-900 font-bold px-6 py-3 md:px-8 md:py-4 rounded-lg transition-all text-sm md:text-base" data-key="btn-ask">Ask a Question</a>
+                    <a href="#services" class="border-2 border-white hover:bg-white hover:text-emerald-900 px-6 py-3 md:px-8 md:py-4 rounded-lg font-bold transition-all text-sm md:text-base" data-key="btn-view">Our Services</a>
                 </div>
-                <button class="bg-emerald-700 text-white px-8 py-3 rounded-xl hover:bg-emerald-800 transition w-full md:w-auto text-sm md:text-base font-bold" data-key="btn-search">Search</button>
             </div>
-            <div id="search-results"></div>
+        </section>
+
+        <div class="container mx-auto px-4 md:px-6 -mt-8 relative z-40">
+            <div class="bg-white p-3 md:p-4 rounded-2xl shadow-2xl relative gold-border">
+                <div class="flex flex-col md:flex-row gap-2 items-center">
+                    <div class="flex items-center w-full">
+                        <i class="fas fa-search text-emerald-600 px-3"></i>
+                        <input type="text" id="main-search" onkeyup="searchQuestions()" class="w-full p-2 md:p-3 outline-none text-base md:text-lg" placeholder="Search topics..." data-key="search-placeholder">
+                    </div>
+                    <button class="bg-emerald-700 text-white px-8 py-3 rounded-xl hover:bg-emerald-800 transition w-full md:w-auto text-sm md:text-base font-bold" data-key="btn-search">Search</button>
+                </div>
+                <div id="search-results"></div>
+            </div>
         </div>
+
+        <section id="about" class="py-16 md:py-24 px-6 md:px-12 container mx-auto">
+            <div class="grid lg:grid-cols-2 gap-10 items-center">
+                <div data-aos="fade-right"><img src="https://images.unsplash.com/photo-1590076214667-cda933b484d9?auto=format&fit=crop&q=80&w=1000" class="rounded-2xl shadow-xl gold-border w-full"></div>
+                <div data-aos="fade-left">
+                    <h2 class="text-3xl md:text-4xl font-bold text-emerald-900 mb-6" data-key="about-title">About Our Mission</h2>
+                    <p class="text-gray-600 mb-6 text-sm md:text-base" data-key="about-p1">We provide a platform where the modern Muslim can bridge the gap between traditional values and contemporary challenges.</p>
+                    <div class="space-y-3"><div class="flex items-center gap-3"><i class="fas fa-check-circle text-emerald-600"></i><span class="text-sm md:text-base font-semibold" data-key="feat-1">Verified Scholars</span></div><div class="flex items-center gap-3"><i class="fas fa-check-circle text-emerald-600"></i><span class="text-sm md:text-base font-semibold" data-key="feat-2">Confidential</span></div><div class="flex items-center gap-3"><i class="fas fa-check-circle text-emerald-600"></i><span class="text-sm md:text-base font-semibold" data-key="feat-3">Response via WhatsApp</span></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="bg-emerald-50 py-16 px-4">
+            <div class="container mx-auto text-center mb-12"><h2 class="text-3xl font-bold text-emerald-900 mb-4" data-key="serv-title">Our Services</h2><div class="w-20 h-1 bg-gold-accent mx-auto"></div></div>
+            <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-8 rounded-2xl shadow-md card-hover text-center" data-aos="zoom-in"><i class="fas fa-book-open text-3xl text-emerald-700 mb-4"></i><h3 class="font-bold mb-2" data-key="serv-1-t">Fiqh</h3><p class="text-gray-600 text-sm" data-key="serv-1-d">Detailed answers regarding prayer, fasting, and jurisprudence.</p></div>
+                <div class="bg-white p-8 rounded-2xl shadow-md card-hover text-center" data-aos="zoom-in" data-aos-delay="100"><i class="fas fa-users text-3xl text-emerald-700 mb-4"></i><h3 class="font-bold mb-2" data-key="serv-2-t">Family</h3><p class="text-gray-600 text-sm" data-key="serv-2-d">Guidance on marriage and resolving disputes through Shariah.</p></div>
+                <div class="bg-white p-8 rounded-2xl shadow-md card-hover text-center" data-aos="zoom-in" data-aos-delay="200"><i class="fas fa-hand-holding-heart text-3xl text-emerald-700 mb-4"></i><h3 class="font-bold mb-2" data-key="serv-3-t">Inheritance</h3><p class="text-gray-600 text-sm" data-key="serv-3-d">Professional advice according to Islamic laws.</p></div>
+            </div>
+        </section>
+
+        <section id="ask" class="py-16 px-4 container mx-auto">
+            <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden gold-border" data-aos="fade-up">
+                <div class="bg-emerald-900 p-6 text-white text-center"><h2 class="text-2xl font-bold mb-2" data-key="form-title">Submit Your Question</h2><p class="opacity-80 text-sm" data-key="form-sub">We will send your answer through WhatsApp or Gmail.</p></div>
+                <form id="qaForm" action="https://formspree.io/f/xpqnnqlv" method="POST" class="p-6 md:p-12 space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div><label class="block mb-1 font-semibold text-sm" data-key="label-name">Full Name</label><input type="text" name="name" required class="w-full p-3 rounded-xl bg-gray-50 border focus:border-emerald-500 outline-none transition"></div>
+                        <div><label class="block mb-1 font-semibold text-sm" data-key="label-wa">WhatsApp</label><input type="tel" name="whatsapp" required class="w-full p-3 rounded-xl bg-gray-50 border focus:border-emerald-500 outline-none transition"></div>
+                    </div>
+                    <div><label class="block mb-1 font-semibold text-sm" data-key="label-email">Gmail</label><input type="email" name="email" required class="w-full p-3 rounded-xl bg-gray-50 border focus:border-emerald-500 outline-none transition"></div>
+                    <div><label class="block mb-1 font-semibold text-sm" data-key="label-ques">Question</label><textarea name="question" rows="4" required class="w-full p-3 rounded-xl bg-gray-50 border focus:border-emerald-500 outline-none transition"></textarea></div>
+                    <button type="submit" id="submitBtn" class="w-full bg-emerald-700 text-white font-bold py-4 rounded-xl hover:bg-emerald-800 transition-all text-lg shadow-lg" data-key="btn-submit">Submit</button>
+                </form>
+                <div id="thankYouMsg" class="hidden p-16 text-center"><i class="fas fa-check-circle text-6xl text-emerald-600 mb-4"></i><h2 class="text-2xl font-bold" data-key="success-text">Thank You!</h2><p class="text-gray-600 mt-2" data-key="success-sub">Sent privately. We will respond soon.</p><button onclick="location.reload()" class="mt-6 text-emerald-700 font-bold border-b-2" data-key="btn-another">Send Another</button></div>
+            </div>
+        </section>
+
+        <footer class="bg-emerald-950 text-white pt-16 pb-8 px-6 text-center">
+            <div class="max-w-4xl mx-auto"><h2 class="text-xl font-bold mb-4" data-key="site-logo">آپ کے مسائل اور ان کا حل</h2><div class="flex justify-center gap-6 mb-8 text-2xl"><a href="#"><i class="fab fa-facebook hover:text-gold-accent transition"></i></a><a href="https://wa.me/923437996268"><i class="fab fa-whatsapp hover:text-gold-accent transition"></i></a><a href="#"><i class="fab fa-instagram hover:text-gold-accent transition"></i></a></div><p class="text-xs opacity-50">&copy; 2024 Aap Ke Masail. All rights reserved.</p></div>
+        </footer>
     </div>
 
-    <!-- About Section -->
-    <section id="about" class="py-16 md:py-24 px-6 md:px-12 container mx-auto">
-        <div class="grid lg:grid-cols-2 gap-10 md:gap-16 items-center">
-            <div data-aos="fade-right" class="order-2 lg:order-1">
-                <img src="https://images.unsplash.com/photo-1590076214667-cda933b484d9?auto=format&fit=crop&q=80&w=1000" alt="Islamic Study" class="rounded-2xl shadow-xl gold-border w-full h-auto object-cover">
-            </div>
-            <div data-aos="fade-left" class="order-1 lg:order-2">
-                <h2 class="text-3xl md:text-4xl font-bold text-emerald-900 mb-4 md:mb-6" data-key="about-title">About Our Mission</h2>
-                <p class="text-gray-600 leading-relaxed mb-6 text-sm md:text-base" data-key="about-p1">We provide a platform where the modern Muslim can bridge the gap between traditional values and contemporary challenges.</p>
-                <div class="space-y-3 md:space-y-4">
-                    <div class="flex items-center gap-3"><i class="fas fa-check-circle text-emerald-600"></i> <span class="text-sm md:text-base font-semibold" data-key="feat-1">Verified Scholars & Muftis</span></div>
-                    <div class="flex items-center gap-3"><i class="fas fa-check-circle text-emerald-600"></i> <span class="text-sm md:text-base font-semibold" data-key="feat-2">Confidential & Private</span></div>
-                    <div class="flex items-center gap-3"><i class="fas fa-check-circle text-emerald-600"></i> <span class="text-sm md:text-base font-semibold" data-key="feat-3">Response via WhatsApp & Email</span></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="bg-emerald-50 py-16 md:py-24 px-4">
-        <div class="container mx-auto text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-emerald-900 mb-4" data-key="serv-title">Our Services</h2>
-            <div class="w-20 h-1 bg-gold-accent mx-auto"></div>
-        </div>
-        <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            <div class="bg-white p-8 md:p-10 rounded-2xl shadow-md card-hover text-center" data-aos="zoom-in">
-                <i class="fas fa-book-open text-3xl md:text-4xl text-emerald-700 mb-6"></i>
-                <h3 class="text-lg md:text-xl font-bold mb-4" data-key="serv-1-t">Fiqh Consultations</h3>
-                <p class="text-gray-600 text-sm md:text-base" data-key="serv-1-d">Detailed answers regarding prayer, fasting, and daily jurisprudence.</p>
-            </div>
-            <div class="bg-white p-8 md:p-10 rounded-2xl shadow-md card-hover text-center" data-aos="zoom-in" data-aos-delay="100">
-                <i class="fas fa-users text-3xl md:text-4xl text-emerald-700 mb-6"></i>
-                <h3 class="text-lg md:text-xl font-bold mb-4" data-key="serv-2-t">Family Counseling</h3>
-                <p class="text-gray-600 text-sm md:text-base" data-key="serv-2-d">Guidance on marriage and resolving disputes through Shariah.</p>
-            </div>
-            <div class="bg-white p-8 md:p-10 rounded-2xl shadow-md card-hover text-center" data-aos="zoom-in" data-aos-delay="200">
-                <i class="fas fa-hand-holding-heart text-3xl md:text-4xl text-emerald-700 mb-6"></i>
-                <h3 class="text-lg md:text-xl font-bold mb-4" data-key="serv-3-t">Inheritance (Mirath)</h3>
-                <p class="text-gray-600 text-sm md:text-base" data-key="serv-3-d">Professional advice according to Islamic laws.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Ask Question Section -->
-    <section id="ask" class="py-16 md:py-24 px-4 container mx-auto">
-        <div class="max-w-3xl mx-auto bg-white rounded-2xl md:rounded-3xl shadow-2xl overflow-hidden gold-border" data-aos="fade-up">
-            <div class="bg-emerald-900 p-6 md:p-8 text-white text-center">
-                <h2 class="text-2xl md:text-3xl font-bold mb-2" data-key="form-title">Submit Your Question</h2>
-                <p class="opacity-80 text-sm md:text-base" data-key="form-sub">We will send your answer through WhatsApp or Gmail.</p>
-            </div>
-            
-            <form id="qaForm" action="https://formspree.io/f/xpqnnqlv" method="POST" class="p-6 md:p-12 space-y-4 md:space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                    <div class="text-left rtl:text-right">
-                        <label class="block mb-2 font-semibold text-sm md:text-base" data-key="label-name">Full Name</label>
-                        <input type="text" name="name" required class="w-full p-3 md:p-4 rounded-xl bg-gray-50 border border-gray-200 focus:border-emerald-500 focus:outline-none transition">
-                    </div>
-                    <div class="text-left rtl:text-right">
-                        <label class="block mb-2 font-semibold text-sm md:text-base" data-key="label-wa">WhatsApp Number</label>
-                        <input type="tel" name="whatsapp" required class="w-full p-3 md:p-4 rounded-xl bg-gray-50 border border-gray-200 focus:border-emerald-500 focus:outline-none transition">
-                    </div>
-                </div>
-                <div class="text-left rtl:text-right">
-                    <label class="block mb-2 font-semibold text-sm md:text-base" data-key="label-email">Gmail Address</label>
-                    <input type="email" name="email" required class="w-full p-3 md:p-4 rounded-xl bg-gray-50 border border-gray-200 focus:border-emerald-500 focus:outline-none transition">
-                </div>
-                <div class="text-left rtl:text-right">
-                    <label class="block mb-2 font-semibold text-sm md:text-base" data-key="label-ques">Your Islamic Question</label>
-                    <textarea name="question" rows="4" required class="w-full p-3 md:p-4 rounded-xl bg-gray-50 border border-gray-200 focus:border-emerald-500 focus:outline-none transition"></textarea>
-                </div>
-                <button type="submit" id="submitBtn" class="w-full bg-emerald-700 text-white font-bold py-3 md:py-4 rounded-xl hover:bg-emerald-800 transition-all text-lg md:text-xl shadow-lg" data-key="btn-submit">
-                    Submit Question
-                </button>
-            </form>
-
-            <div id="thankYouMsg" class="hidden p-10 md:p-16 text-center">
-                <i class="fas fa-check-circle text-5xl md:text-7xl text-emerald-600 mb-6"></i>
-                <h2 class="text-2xl md:text-3xl font-bold text-emerald-900" data-key="success-text">Thank You!</h2>
-                <p class="text-base md:text-xl text-gray-600 mt-4" data-key="success-sub">Sent privately. We will respond soon.</p>
-                <button onclick="location.reload()" class="mt-8 text-emerald-700 font-bold border-b-2 border-emerald-700" data-key="btn-another">Send Another</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-emerald-950 text-white pt-16 pb-8 px-6 text-center">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-xl md:text-2xl font-bold mb-4" data-key="site-logo">آپ کے مسائل اور ان کا حل</h2>
-            <div class="flex justify-center gap-6 mb-8 text-2xl">
-                <a href="#"><i class="fab fa-facebook hover:text-gold-accent transition"></i></a>
-                <a href="https://wa.me/923437996268"><i class="fab fa-whatsapp hover:text-gold-accent transition"></i></a>
-                <a href="#"><i class="fab fa-instagram hover:text-gold-accent transition"></i></a>
-            </div>
-            <p class="text-xs opacity-50">&copy; 2024 Aap Ke Masail. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Floating WhatsApp -->
-    <a href="https://wa.me/923437996268" target="_blank" class="fixed bottom-6 right-6 bg-[#25D366] text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-2xl z-50 floating-wa text-2xl md:text-3xl">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <a href="https://wa.me/923437996268" target="_blank" class="fixed bottom-6 right-6 bg-[#25D366] text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-2xl z-50 floating-wa text-2xl md:text-3xl"><i class="fab fa-whatsapp"></i></a>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
-
         let currentLang = 'ur'; 
-
         const translations = {
             'en': {
                 'nav-home': 'Home', 'nav-about': 'About', 'nav-ask': 'Ask', 'nav-services': 'Services', 'nav-faq': 'FAQ',
@@ -271,7 +202,7 @@
                 'form-title': 'Submit Question', 'form-sub': 'We will respond via WhatsApp or Gmail.',
                 'label-name': 'Full Name', 'label-wa': 'WhatsApp', 'label-email': 'Gmail', 'label-ques': 'Question',
                 'btn-submit': 'Submit', 'success-text': 'Thank You!', 'success-sub': 'Sent privately. We will respond soon.',
-                'btn-another': 'New Question', 'lang-btn': 'اردو'
+                'btn-another': 'New Question', 'lang-btn': 'اردو', 'faq-title': 'FAQ'
             },
             'ur': {
                 'nav-home': 'ہوم', 'nav-about': 'ہمارے بارے میں', 'nav-ask': 'سوال', 'nav-services': 'خدمات', 'nav-faq': 'عام سوالات',
@@ -283,16 +214,16 @@
                 'form-title': 'سوال ارسال کریں', 'form-sub': 'جواب واٹس ایپ یا جی میل پر ملے گا۔',
                 'label-name': 'مکمل نام', 'label-wa': 'واٹس ایپ نمبر', 'label-email': 'ای میل', 'label-ques': 'آپ کا سوال',
                 'btn-submit': 'جمع کروائیں', 'success-text': 'شکریہ!', 'success-sub': 'آپ کا سوال موصول ہو گیا ہے، جلد جواب ملے گا۔',
-                'btn-another': 'دوسرا سوال', 'lang-btn': 'English'
+                'btn-another': 'دوسرا سوال', 'lang-btn': 'English', 'faq-title': 'عام سوالات'
             }
         };
 
-        function toggleLanguage() {
-            currentLang = currentLang === 'en' ? 'ur' : 'en';
+        // Initialize Language Speedily
+        function setLanguage(lang) {
+            currentLang = lang;
             const isUrdu = currentLang === 'ur';
             document.documentElement.dir = isUrdu ? 'rtl' : 'ltr';
-            document.body.className = isUrdu ? 'urdu-text text-gray-800' : 'text-gray-800';
-            
+            document.body.className = isUrdu ? 'urdu-text text-gray-800 loaded' : 'text-gray-800 loaded';
             document.querySelectorAll('[data-key]').forEach(el => {
                 const key = el.getAttribute('data-key');
                 if (translations[currentLang][key]) {
@@ -302,7 +233,12 @@
             document.getElementById('lang-text').innerText = translations[currentLang === 'en' ? 'ur' : 'en']['lang-btn'];
         }
 
-        window.onload = () => { currentLang = 'en'; toggleLanguage(); };
+        function toggleLanguage() {
+            setLanguage(currentLang === 'en' ? 'ur' : 'en');
+        }
+
+        // Run Immediately
+        setLanguage('ur'); 
 
         function searchQuestions() {
             const input = document.getElementById('main-search').value.toLowerCase();
@@ -332,6 +268,11 @@
         });
 
         function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('translate-x-full'); }
+        
+        window.onload = () => {
+            document.body.classList.add('loaded'); 
+            AOS.init({ duration: 1000, once: true });
+        };
     </script>
 </body>
-            </html>
+</html>
